@@ -1,0 +1,1 @@
+启动顺序 Eureka  > production > consume > zuul
