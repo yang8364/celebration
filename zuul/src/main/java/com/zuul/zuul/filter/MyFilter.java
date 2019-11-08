@@ -46,24 +46,17 @@ public class MyFilter extends ZuulFilter {
         return true;
     }
 
+    /**
+     * zuul 过滤器
+     * @return
+     * @throws ZuulException
+     */
     @Override
     public Object run() throws ZuulException {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
         log.info(String.format("%s >>> %s", request.getMethod(), request.getRequestURL().toString()));
         Object accessToken = request.getParameter("token");
-        if(accessToken == null) {
-            log.warn("token is empty");
-            ctx.setSendZuulResponse(false);
-            ctx.setResponseStatusCode(401);
-            try {
-                ctx.getResponse().getWriter().write("token is empty");
-            }catch (Exception e){
-                log.error("zuul response error : " + e );
-            }
-            return null;
-        }
-        log.info("ok");
         return null;
     }
 }
